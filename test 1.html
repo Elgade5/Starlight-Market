@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Starlight Market</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+    }
+    header {
+      background-color: #111;
+      padding: 15px 0;
+      text-align: center;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 20px;
+      font-size: 18px;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 30px;
+    }
+    img {
+      width: 150px;
+      margin-bottom: 15px;
+    }
+    h1 {
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: 18px;
+      font-weight: normal;
+      color: #cccccc;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    button, select {
+      padding: 12px 20px;
+      margin: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+    button {
+      background-color: #ffcb05;
+      color: #000;
+    }
+    #itemMenu {
+      display: none;
+    }
+    #message {
+      margin-top: 20px;
+      font-size: 18px;
+      white-space: pre-line;
+      text-align: center;
+      max-width: 600px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <a href="#">Home</a>
+      <a href="https://discord.gg/U6kPK4EwVG" target="_blank">Contact</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <img src="logo.png" alt="Starlight Market Logo" />
+    <h1>✨ Starlight Market ✨</h1>
+    <h2>Your Eternal Market on Curse of Aros</h2>
+
+    <button onclick="showMenu()">Prices</button>
+
+    <select id="itemMenu" onchange="showPrice()">
+      <option disabled selected>Select an item</option>
+    </select>
+
+    <div id="message"></div>
+  </div>
+
+  <script>
+    const prices = {
+      "Logs": {
+        "Pine log": 3000, "Dead log": 3000, "Birch log": 2500, "Apple wood": 2000,
+        "Willow log": 5000, "Oak log": 5000, "Chestnut log": 8000, "Maple log": 8000,
+        "Olive log": 10000, "Magic log": 2500, "Palm log": 4000, "Pear log": 7000,
+        "Lime log": 4000
+      },
+      "Relics": {
+        "Accuracy relic": 4000, "Guarding relic": 4000, "Healing relic": 4000,
+        "Wealth relic": 4000, "Power relic": 6000, "Nature relic": 6000,
+        "Fire relic": 9000, "Damage relic": 8000, "Leeching relic": 5000,
+        "Experience relic": 11000, "Cursed relic": 3500, "Ice relic": 8000,
+        "Efficiency relic": 5000, "Affliction relic": 5000, "Tablets": 5000
+      },
+      "Ores": {
+        "Coal": 3000, "Mythan ore": 10000, "Cobalt ore": 12000,
+        "Varaxium ore": 14000, "Magic ore": 4000, "SandStone": 9000
+      },
+      "Second Ores": {
+        "Salt": 4000, "Pink salt": 8000, "Black salt": 9000
+      },
+      "Bars": {
+        "Gold Bars": 1000000, "Mythan bar": 140000, "Cobalt bar": 130000,
+        "Varaxium bar": 150000, "Magic bar": 45000
+      }
+    };
+
+    function showMenu() {
+      const menu = document.getElementById("itemMenu");
+      menu.innerHTML = '<option disabled selected>Select an item</option>';
+
+      for (const category in prices) {
+        const optgroup = document.createElement("optgroup");
+        optgroup.label = category;
+
+        for (const item in prices[category]) {
+          const option = document.createElement("option");
+          option.value = item;
+          option.text = item;
+          optgroup.appendChild(option);
+        }
+        menu.appendChild(optgroup);
+      }
+
+      menu.style.display = "block";
+      document.getElementById("message").innerText = "Choose an item from the list below:";
+    }
+
+    function showPrice() {
+      const selected = document.getElementById("itemMenu").value;
+      for (const category in prices) {
+        if (selected in prices[category]) {
+          const price = prices[category][selected];
+          document.getElementById("message").innerText = `You chose: ${selected}\nPrice: ${price} Gold Each`;
+          return;
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
